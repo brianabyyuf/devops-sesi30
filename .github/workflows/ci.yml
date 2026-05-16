@@ -22,7 +22,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt -r dev-requirements.txt
       - name: Run Pytest
-        run: pytest
+        run: PYTHONPATH=. pytest
 
   sast:
     name: SAST Scan (Bandit)
@@ -80,7 +80,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
